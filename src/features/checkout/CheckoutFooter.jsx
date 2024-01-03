@@ -4,11 +4,30 @@ import { CartContext } from "../../context/cartContext";
 
 export const CheckoutFooter = () => {
   const navigate = useNavigate();
-  const { getTotalPrice,setItems } = useContext(CartContext);
+  const { getTotalPrice,setItems,items } = useContext(CartContext);
 
-  const handleCheckout = () => {
+  const handleCheckout = async() => {
+    let newProductList = items.map((item)=>{
+      return {'productId':item._id,'quatity':item.qty,'productName':item.name,'productImageUrl':item.image}
+    })
+
+    const newData = { 
+    "userId":"643121ec1cb74a068e38625d",
+    "products":newProductList,
+    "amount":getTotalPrice(),
+    "address":{"city":"Accra"},
+    "Status":"pending"
+
+}
     //TODO: Write Api call here if successful clear cart and navigate to home , Kindly use Axios I already have it imported
-    navigate("/")
+    try {
+      const response = await axios.post(`${REACT_APP_BASE_URL}/api/orders/create`,newData);
+      if(response.status === 200){
+            navigate("/")
+      }
+    } catch (error) {
+      console.log('error')
+    }
   }
 
 
