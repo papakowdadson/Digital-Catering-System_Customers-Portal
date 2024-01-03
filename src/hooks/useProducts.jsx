@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { products } from "../data";
 import axios from "axios";
 
 const useProduct = () => {
@@ -19,21 +18,23 @@ const useProduct = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    console.log("product", products);
-    //TODO write Api call function here, kindly use axios, I alredy have it imported
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/api/products/`
-      );
+      console.log('fetching data')
+      const response = axios.get(`${process.env.REACT_APP_BASE_URL}/api/products/`);
       if (response.status == 200) {
         console.log('resdata',response.data);
         setAllData(response.data);
         console.log("alldata", allData);
         filter("Breakfast");
-        setLoading(false);
+        setLoading(false); 
+      }
+      else{
+              setLoading(false)
+
       }
     } catch (error) {
-      console.log(error);
+      console.log(error,error);
+      setLoading(false)
     }
   };
 

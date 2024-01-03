@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext";
+import axios from "axios";
 
 export const CheckoutFooter = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const CheckoutFooter = () => {
 }
     //TODO: Write Api call here if successful clear cart and navigate to home , Kindly use Axios I already have it imported
     try {
-      const response = await axios.post(`${REACT_APP_BASE_URL}/api/orders/create`,newData);
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/orders/create`,newData);
       if(response.status === 200){
             navigate("/")
       }
