@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+
 import { CartContext } from "../../context/cartContext";
 
 
@@ -30,10 +32,16 @@ export const CheckoutFooter = () => {
       if(response.status === 200){
         console.log(response.status)
         setItems([])
-            navigate("/")
+        toast.success("Order Sent ", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        navigate("/")
       }
     } catch (error) {
-      console.log('error with checkout',error)
+      console.log('error with checkout',error);
+      toast.failure("Error Sending order ", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   }
 

@@ -11,7 +11,7 @@ const useProduct = () => {
   }, []);
 
   const filter = (category) => {
-    let newData = allData.filter((data) => data.categories[0] == category);
+    let newData = allData.filter((data) => data.categories[0] === category);
     console.log("newData", newData);
     setFilteredData(newData);
   };
