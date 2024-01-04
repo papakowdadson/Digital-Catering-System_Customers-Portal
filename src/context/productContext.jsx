@@ -7,10 +7,10 @@ export function ProductProvider(props) {
   const [items, setItems] = useState([]);
 
   const [allData, setAllData] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 const fetchData =useCallback(async()=>{ 
-    setLoading(true);
+    
     try {
       console.log("fetching data");
       const response = await axios.get(
@@ -21,25 +21,24 @@ const fetchData =useCallback(async()=>{
         console.log("resdata", data);
         setAllData(data);
         setItems(()=>data.filter((data) => data.categories[0].toLowerCase() === 'Breakfast'.toLowerCase()));
-        setLoading(false);
       } else {
         toast("Error Loading Product",{
           position: toast.POSITION.TOP_RIGHT,
         })
         console.log(response);
-        setLoading(false);
       }
     } catch (error) {
       console.log(error, error);
       toast("Error Loading Product",{
         position: toast.POSITION.TOP_RIGHT,
       })
-      setLoading(false);
     }
   },[]) 
 
   useEffect(() => {
+    setLoading(true);
     fetchData();
+    setLoading(false);
     return () => {
       fetchData();
     };
