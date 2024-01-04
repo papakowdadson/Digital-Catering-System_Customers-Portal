@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 export const CartContext = createContext();
 export function CartProvider(props) {
   // useEffect(async()=>{
@@ -62,29 +62,29 @@ export function CartProvider(props) {
   // ])
 
   const [items, setItems] = useState([
-    {
-      _id: "1",
-      name: "Jollof and Chicken",
-      vendor: "Adepa Foods",
-      price: 57.0,
-      qty: 1,
-      totalPrice: 57.0,
-      image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
-    },
-    {
-      _id: "2",
-      name: "Fries and Chicken Breast",
-      vendor: "Adepa Foods",
-      price: 43.0,
-      qty: 1,
-      totalPrice: 43.0,
-      image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
-    },
+    // {
+    //   _id: "1",
+    //   name: "Jollof and Chicken",
+    //   vendor: "Adepa Foods",
+    //   price: 57.0,
+    //   qty: 1,
+    //   totalPrice: 57.0,
+    //   image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
+    // },
+    // {
+    //   _id: "2",
+    //   name: "Fries and Chicken Breast",
+    //   vendor: "Adepa Foods",
+    //   price: 43.0,
+    //   qty: 1,
+    //   totalPrice: 43.0,
+    //   image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
+    // },
   ]);
 
   // function addRemoveFav(product){
   //   setFav((prevItem)=>{
-  //     const item = prevItem.find((item) => item.id == product.id);
+  //     const item = prevItem.find((item) => item.id === product.id);
   //     if(item){
   //       return prevItem.filter((item)=>item.id!=product.id)
   //     }
@@ -98,7 +98,7 @@ export function CartProvider(props) {
     console.log('====adding Item');
     //   const product = getProduct(_id);
     setItems((prevItems) => {
-      const item = prevItems.find((item) => item._id == _id);
+      const item = prevItems.find((item) => item._id === _id);
       if (!item) {
         return [
           ...prevItems,
@@ -114,7 +114,8 @@ export function CartProvider(props) {
         ];
       } else {
         return prevItems.map((item) => {
-          if (item._id == _id) {
+          if (item._id === _id) {
+            // return{...item,'qyt':item.qty++,'totalPrice':item.totalPrice +product.price}
             item.qty++;
             item.totalPrice += product.price;
           }
@@ -125,22 +126,23 @@ export function CartProvider(props) {
   }
   const removeItem=(_id, product)=> {
     setItems((prevItems) => {
-      const item = prevItems.find((item) => item._id == _id);
+      const item = prevItems.find((item) => item._id === _id);
       if (item.qty <= 1) {
         return prevItems
           .map((item) => {
-            if (item._id == _id) {
+            if (item._id === _id) {
+              // return {...item,'q':item.qty--,'totalPrice':item.totalPrice -product.price}
               item.qty--;
               item.totalPrice -= product.price;
             }
             return item;
           })
-          .filter((item) => item._id != _id);
+          .filter((item) => item._id !== _id);
 
         // return prevItems.filter((item)=>item._id!=_id)
       } else {
         return prevItems.map((item) => {
-          if (item._id == _id) {
+          if (item._id === _id) {
             item.qty--;
             item.totalPrice -= product.price;
           }

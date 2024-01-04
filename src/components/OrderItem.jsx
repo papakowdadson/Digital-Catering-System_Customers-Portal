@@ -5,7 +5,7 @@ const OrderItem = ({ item }) => {
     const {addItemToCart,removeItem} = useContext(CartContext)
   return (
     <div className="flex items-center mb-2">
-      <img src={item.image} alt="Order Image" className="rounded w-3/12 h-16" />
+      <img src={item.image} alt="Order" className="rounded w-3/12 h-16" />
       <p className="ml-1 mr-1 w-4/12">{item.name}</p>
       <p className="ml-1 mr-1 w-1/12">{item.price}</p>
 

@@ -1,29 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import React, { createContext, useState,useEffect, useCallback } from "react";
 import axios from "axios";
-import { ProductContext } from "../context/productContext";
 import { toast } from "react-toastify";
 
-const useProduct = () => {
-  const {setItems} = useContext(ProductContext)
+export const ProductContext = createContext();
+export function ProductProvider(props) {
+  const [items, setItems] = useState([]);
+
   const [allData, setAllData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState([]);
-  useEffect(() => {
-    fetchData();
-    return () => {
-      fetchData();
-    };
-  }, [ ]);
 
-  const filter = (category) => {
-    let newData = allData.filter((data) => data.categories[0].toLowerCase() === category.toLowerCase());
-    console.log("newData", newData);
-    setFilteredData(newData);
-    setItems(newData)
-
-  };
-
-  const fetchData = async () => {
+const fetchData =useCallback(async()=>{ 
     setLoading(true);
     try {
       console.log("fetching data");
@@ -34,8 +20,7 @@ const useProduct = () => {
         const data = await response.data;
         console.log("resdata", data);
         setAllData(data);
-        console.log("alldata", allData);
-        filter("BreaKfast");
+        setItems(()=>data.filter((data) => data.categories[0].toLowerCase() === 'Breakfast'.toLowerCase()));
         setLoading(false);
       } else {
         toast("Error Loading Product",{
@@ -51,8 +36,31 @@ const useProduct = () => {
       })
       setLoading(false);
     }
+  },[]) 
+
+  useEffect(() => {
+    fetchData();
+    return () => {
+      fetchData();
+    };
+  }, [fetchData]);
+
+  const filter = (category) => {
+    let newData = allData.filter((data) => data.categories[0].toLowerCase() === category.toLowerCase());
+    console.log("newData", newData);
+    setItems(newData)
+
   };
 
-  return { loading, filteredData, filter,fetchData };
-};
-export default useProduct;
+  return (
+    <ProductContext.Provider
+      value={{
+        items,
+        setItems,
+        loading,filter,fetchData
+      }}
+    >
+      {props.children}
+    </ProductContext.Provider>
+  );
+}
