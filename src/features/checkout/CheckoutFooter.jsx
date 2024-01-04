@@ -1,22 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { CartContext } from "../../context/cartContext";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { CartContext } from "../../context/cartContext";
+
 
 export const CheckoutFooter = () => {
   const navigate = useNavigate();
+  const userId = uuidv4();
   const { getTotalPrice,setItems,items } = useContext(CartContext);
 
   const handleCheckout = async() => {
+    console.log('checking out orders...')
     let newProductList = items.map((item)=>{
       return {'productId':item._id,'quatity':item.qty,'productName':item.name,'productImageUrl':item.image}
     })
 
     const newData = { 
-    "userId":"643121ec1cb74a068e38625d",
+    "userId":userId,
     "products":newProductList,
     "amount":getTotalPrice(),
-    "address":{"city":"Accra"},
+    "address":{"city":"In-house"},
     "Status":"pending"
 
 }
@@ -24,10 +28,12 @@ export const CheckoutFooter = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/orders/create`,newData);
       if(response.status === 200){
+        console.log(response.status)
+        setItems([])
             navigate("/")
       }
     } catch (error) {
-      console.log('error')
+      console.log('error with checkout',error)
     }
   }
 

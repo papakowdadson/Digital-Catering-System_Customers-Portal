@@ -95,6 +95,7 @@ export function CartProvider(props) {
   // }
 
   function addItemToCart(_id, product) {
+    console.log('====adding Item');
     //   const product = getProduct(_id);
     setItems((prevItems) => {
       const item = prevItems.find((item) => item._id == _id);
@@ -104,10 +105,10 @@ export function CartProvider(props) {
           {
             _id,
             qty: 1,
-            name: product.name,
+            name: product.title,
             vendor: product.vendor,
             price: product.price,
-            image: product.image,
+            image: product.img,
             totalPrice: product.price,
           },
         ];

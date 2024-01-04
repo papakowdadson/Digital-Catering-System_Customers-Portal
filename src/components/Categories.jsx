@@ -9,7 +9,7 @@ const Categories = ({name,cartSelected,setCartSelected} ) => {
     }
 
     return (
-        <button className={cartSelected==name?"rounded bg-rose-500 pt-1 pb-1 pr-3 pl-3":""} type="button" onClick={()=>handlechange()}><p>{name}</p></button>
+        <button className={cartSelected==name?"rounded bg-rose-500 pt-1 pb-1 pr-3 pl-3 text-white":""} type="button" onClick={()=>handlechange()}><p>{name}</p></button>
         
     )
 

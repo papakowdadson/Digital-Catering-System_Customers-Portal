@@ -88,4 +88,4 @@ export const cartItems = [
     }
 ]
 
-export const catergories=['Breakfast','Launch','supper'];
+export const catergories=['Breakfast','Lunch','supper'];

@@ -11,7 +11,7 @@ const useProduct = () => {
   }, []);
 
   const filter = (category) => {
-    let newData = allData.filter((data) => data.categories[0]==category);
+    let newData = allData.filter((data) => data.categories[0] == category);
     console.log("newData", newData);
     setFilteredData(newData);
   };
@@ -19,22 +19,24 @@ const useProduct = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      console.log('fetching data')
-      const response = axios.get(`${process.env.REACT_APP_BASE_URL}/api/products/`);
+      console.log("fetching data");
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/products/`
+      );
       if (response.status == 200) {
-        console.log('resdata',response.data);
-        setAllData(response.data);
+        const data = await response.data;
+        console.log("resdata", data);
+        setAllData(data);
         console.log("alldata", allData);
-        filter("Breakfast");
-        setLoading(false); 
-      }
-      else{
-              setLoading(false)
-
+        filter("BreaKfast");
+        setLoading(false);
+      } else {
+        console.log(response);
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error,error);
-      setLoading(false)
+      console.log(error, error);
+      setLoading(false);
     }
   };
 
