@@ -62,24 +62,24 @@ export function CartProvider(props) {
   // ])
 
   const [items, setItems] = useState([
-    // {
-    //   _id: "1",
-    //   name: "Jollof and Chicken",
-    //   vendor: "Adepa Foods",
-    //   price: 57.0,
-    //   qty: 1,
-    //   totalPrice: 57.0,
-    //   image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
-    // },
-    // {
-    //   _id: "2",
-    //   name: "Fries and Chicken Breast",
-    //   vendor: "Adepa Foods",
-    //   price: 43.0,
-    //   qty: 1,
-    //   totalPrice: 43.0,
-    //   image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
-    // },
+    {
+      _id: "1",
+      name: "Jollof and Chicken",
+      vendor: "Adepa Foods",
+      price: 57.0,
+      qty: 1,
+      totalPrice: 57.0,
+      image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
+    },
+    {
+      _id: "2",
+      name: "Fries and Chicken Breast",
+      vendor: "Adepa Foods",
+      price: 43.0,
+      qty: 1,
+      totalPrice: 43.0,
+      image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
+    },
   ]);
 
   // function addRemoveFav(product){

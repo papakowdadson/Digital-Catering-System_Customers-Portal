@@ -14,20 +14,22 @@ const HomePage = () => {
   // },[])
 
   return (
-    <div className="pt-2 pl-2 pr-2">
-      <p className="text-center font-semibold">Welcome to K-Foods</p>
-      <CategoryBar />
-      {loading ? (
-        <p className="text-center" >Loading.......</p>
-      ) : (
-        <div className="flex flex-wrap justify-evenly mb-3">
-          {items.map((product, index) => (
-            <DishItem key={index} product={product} />
-          ))}
-        </div>
-      )}
-
-      <Footer />
+    <div className="pt-2 pl-2 pr-2 flex flex-col justify-between h-screen">
+      <div>
+        <p className="text-center font-semibold">Welcome to K-Foods</p>
+        <CategoryBar />
+        {loading ? (
+          <p className="text-center" >Loading.......</p>
+        ) : (
+          <div className="flex flex-wrap justify-evenly mb-3">
+            {items.map((product, index) => (
+              <DishItem key={index} product={product} />
+            ))}
+          </div>
+        )}
+      </div>
+          <Footer />
+    
     </div>
   );
 };
