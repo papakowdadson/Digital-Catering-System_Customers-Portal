@@ -1,20 +1,17 @@
-import {useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import DishItem from "../components/DishItem";
 import Footer from "../components/Footer";
 import CategoryBar from "../features/checkout/CategoryBar";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-
 const HomePage = () => {
   const [allData, setAllData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cartSelected,setCartSelected] = useState('Breakfast')
+  const [cartSelected, setCartSelected] = useState("Breakfast");
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -25,37 +22,47 @@ const HomePage = () => {
         console.log("beforeresdata", response.data);
         if (response.status === 200) {
           const data = await response.data;
-          // console.log("resdata", data);     
+          // console.log("resdata", data);
           console.log("alldata", allData);
-          let newData = data.filter((data) => data.categories[0].toLowerCase() === 'Breakfast'.toLowerCase());
-          setFilteredData(newData); 
+          let newData = data.filter(
+            (data) =>
+              data.categories[0].toLowerCase() === "Breakfast".toLowerCase()
+          );
+          setFilteredData(newData);
           setAllData(data);
           // filter("BreaKfast");
         } else {
           console.log("vvresdata", response.data);
-          toast("Error Loading Product",{
+          toast("Error Loading Product", {
             position: toast.POSITION.TOP_RIGHT,
-          })
-          console.log(response);  
+          });
+          console.log(response);
         }
         setLoading(false);
       } catch (error) {
         console.log(error, error);
-        toast("Error Loading Product",{
+        toast("Error Loading Product", {
           position: toast.POSITION.TOP_RIGHT,
-        })
+        });
         setLoading(false);
       }
     };
-  
-    fetchData()
-  },[])
+
+    fetchData();
+  }, []);
 
   return (
     <div className="pt-2 pl-2 pr-2 flex flex-col justify-between h-screen">
       <div>
-        <p className="text-center font-semibold mb-6">Welcome to K-Foods</p>
-        <CategoryBar cartSelected={cartSelected} setCartSelected={setCartSelected} setFilteredData={setFilteredData} allData={allData} />
+        <p className="text-center font-semibold mb-6">
+          Welcome to K-<span className="text-rose-500">Foods</span>{" "}
+        </p>
+        <CategoryBar
+          cartSelected={cartSelected}
+          setCartSelected={setCartSelected}
+          setFilteredData={setFilteredData}
+          allData={allData}
+        />
         {loading ? (
           <p className="text-center">Loading.......</p>
         ) : (
