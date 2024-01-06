@@ -4,13 +4,11 @@ import CheckoutPage from "./pages/CheckoutPage";
 import { CartProvider } from "./context/cartContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ProductProvider } from "./context/productContext";
 
 function App() {
   return (
     <>
       <CartProvider>
-        <ProductProvider>
           <ToastContainer />
           <Router>
             <Routes>
@@ -18,7 +16,6 @@ function App() {
               <Route path="/checkout" element={<CheckoutPage />} />
             </Routes>
           </Router>
-        </ProductProvider>
       </CartProvider>
     </>
   );

@@ -1,11 +1,9 @@
-import useProduct from "../hooks/useProducts"
 
 
-const Categories = ({name,cartSelected,setCartSelected} ) => {
-    const {filter} = useProduct();
+const Categories = ({name,cartSelected,setCartSelected,setFilteredData,allData} ) => {
     const handlechange = () =>{
-        filter(name);
         setCartSelected(name)
+        setFilteredData(()=>allData.filter((data) => data.categories[0].toLowerCase() === name.toLowerCase()))
     }
 
     return (

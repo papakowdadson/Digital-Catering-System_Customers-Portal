@@ -14,8 +14,7 @@ const CheckoutPage = () => {
   }
   else{
     return ( 
-    <div className="p-2 flex flex-col justify-between h-screen">  
-
+    <div className="p-2 flex flex-col justify-between h-svh">  
       <div className="">
         <p className="font-semibold mb-2">Your Orders</p>
           <div>

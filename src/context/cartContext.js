@@ -1,66 +1,7 @@
 import React, { createContext, useState } from "react";
 export const CartContext = createContext();
 export function CartProvider(props) {
-  // useEffect(async()=>{
-  //     fetchCartItems();
-  // },[items])
-
-  // const fetchCartItems=async()=>{
-  //     try {
-  //         await AsyncStorage.setItem('cartItems',JSON.stringify(items));
-
-  //     } catch (error) {
-
-  //     }
-  // }
-
-  // const [fav,setFav]=useState([
-  //   {
-  //     id: "1",
-  //     name: "Jollof and Chicken",
-  //     vendor: "Adepa Foods",
-  //     price: 57.0,
-  //     qty: 1,
-  //     totalPrice: 57.0,
-  //     image: require("../../assets/adepafoods1.jpg"),
-  //     rating:1.2,
-  //     location:'Jean Nelson'
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Fries and Chicken Breast",
-  //     vendor: "Adepa Foods",
-  //     price: 43.0,
-  //     qty: 1,
-  //     totalPrice: 43.0,
-  //     image: require("../../assets/adepafoods2.jpg"),
-  //     rating:1.2,
-  //     location:'Jean Nelson'
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Taki-Taki",
-  //     vendor: "Orchid Signatures",
-  //     price: 120.1,
-  //     qty: 1,
-  //     totalPrice: 120.1,
-  //     image: require("../../assets/dress1.png"),
-  //     rating:1.2,
-  //     location:'Jean Nelson'
-  //   },
-  //   {
-  //     id: "4",
-  //     name: "iPhone 13 Pro",
-  //     vendor: "XnX Electronics",
-  //     price: 12492.55,
-  //     qty: 1,
-  //     totalPrice: 12492.55,
-  //     image: require("../../assets/phone1.jpg"),
-  //     rating:4.2,
-  //     location:'Jean Nelson'
-  //   },
-  // ])
-
+  
   const [items, setItems] = useState([
     {
       _id: "1",
@@ -71,28 +12,7 @@ export function CartProvider(props) {
       totalPrice: 57.0,
       image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
     },
-    {
-      _id: "2",
-      name: "Fries and Chicken Breast",
-      vendor: "Adepa Foods",
-      price: 43.0,
-      qty: 1,
-      totalPrice: 43.0,
-      image: "https://eatwellabi.com/wp-content/uploads/2022/11/Jollof-rice-16-720x560.jpg",
-    },
   ]);
-
-  // function addRemoveFav(product){
-  //   setFav((prevItem)=>{
-  //     const item = prevItem.find((item) => item.id === product.id);
-  //     if(item){
-  //       return prevItem.filter((item)=>item.id!=product.id)
-  //     }
-  //     return[...prevItem,product]
-
-
-  //   })
-  // }
 
   function addItemToCart(_id, product) {
     console.log('====adding Item');
@@ -115,42 +35,31 @@ export function CartProvider(props) {
       } else {
         return prevItems.map((item) => {
           if (item._id === _id) {
-            // return{...item,'qyt':item.qty++,'totalPrice':item.totalPrice +product.price}
-            item.qty++;
-            item.totalPrice += product.price;
+            return{...item,qty:item.qty+1,totalPrice:item.totalPrice+product.price}
+            // item.qty++;
+            // item.totalPrice += product.price;
           }
           return item;
         });
       }
     });
   }
-  const removeItem=(_id, product)=> {
+  const removeItem = (_id) => {
     setItems((prevItems) => {
-      const item = prevItems.find((item) => item._id === _id);
-      if (item.qty <= 1) {
-        return prevItems
-          .map((item) => {
-            if (item._id === _id) {
-              // return {...item,'q':item.qty--,'totalPrice':item.totalPrice -product.price}
-              item.qty--;
-              item.totalPrice -= product.price;
-            }
-            return item;
-          })
-          .filter((item) => item._id !== _id);
-
-        // return prevItems.filter((item)=>item._id!=_id)
-      } else {
-        return prevItems.map((item) => {
-          if (item._id === _id) {
-            item.qty--;
-            item.totalPrice -= product.price;
-          }
-          return item;
-        });
-      }
+      const updatedItems = prevItems.map((item) => {
+        if (item._id === _id) {
+          return {
+            ...item,
+            qty: item.qty - 1,
+            totalPrice: item.totalPrice - item.price,
+          };
+        }
+        return item;
+      }).filter((item) => item.qty > 0);
+  
+      return updatedItems;
     });
-  }
+  };
   const getItemsCount=() =>{
     let itemcount=  items.reduce((sum, item) => sum + item.qty, 0);
     console.log('Total items',itemcount)
@@ -167,15 +76,12 @@ export function CartProvider(props) {
   return (
     <CartContext.Provider
       value={{
-        // fav,
-        // setFav,
         items,
         setItems,
         getItemsCount,
         addItemToCart,
         getTotalPrice,
         removeItem,
-        // addRemoveFav,
       }}
     >
       {props.children}
