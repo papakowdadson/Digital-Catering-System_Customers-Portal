@@ -9,8 +9,8 @@ import { CartContext } from "../../context/cartContext";
 
 export const CheckoutFooter = () => {
   const navigate = useNavigate();
-  const userId = uuidv4();
-  const { getTotalPrice,setItems,items } = useContext(CartContext);
+  const { getTotalPrice,setItems,items,user } = useContext(CartContext);
+  console.log("======checkout user====",user.userId)
 
   const handleCheckout = async() => {
     console.log('checking out orders...')
@@ -19,7 +19,7 @@ export const CheckoutFooter = () => {
     })
 
     const newData = { 
-    "userId":userId,
+    "userId":user.userId,
     "products":newProductList,
     "amount":getTotalPrice(),
     "address":{"city":"In-house"},

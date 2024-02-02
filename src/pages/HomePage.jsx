@@ -4,12 +4,16 @@ import Footer from "../components/Footer";
 import CategoryBar from "../features/checkout/CategoryBar";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { BsMenuButton } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+
 
 const HomePage = () => {
   const [allData, setAllData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cartSelected, setCartSelected] = useState("Breakfast");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,9 +58,17 @@ const HomePage = () => {
   return (
     <div className="pt-2 pl-2 pr-2 flex flex-col justify-between h-screen">
       <div>
-        <p className="text-center font-semibold mb-6">
-          Welcome to K-<span className="text-rose-500">Foods</span>{" "}
-        </p>
+        <div className="flex justify-between items-center justify-items-center px-6 pt-3 mb-6">
+          <p className="text-left font-semibold text-2xl">
+            Welcome to K-<span className="text-rose-500">Foods</span>{" "}
+          </p>
+          <div onClick={()=>navigate('/orders')}>
+                    <BsMenuButton size={28} />
+
+          </div>
+
+        </div>
+
         <CategoryBar
           cartSelected={cartSelected}
           setCartSelected={setCartSelected}
