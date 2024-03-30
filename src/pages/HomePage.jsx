@@ -63,7 +63,7 @@ const HomePage = () => {
             Welcome to K-<span className="text-rose-500">Foods</span>{" "}
           </p>
           <div onClick={()=>navigate('/orders')}>
-                    <BsMenuButton size={28} />
+                    <BsMenuButton size={24} />
 
           </div>
 

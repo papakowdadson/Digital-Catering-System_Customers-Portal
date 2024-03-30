@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import MyOrder from "../features/orders/myOrders";
 import { CartContext } from "../context/cartContext";
+import noOrder from '../assets/noOrders.svg'
 
 function OrdersPage() {
   const {user} =useContext(CartContext)
@@ -45,7 +46,7 @@ function OrdersPage() {
     return <p className="m-8 text-center">Loading........</p>;
   } else {
     return (
-      <div className="p-2 flex flex-col h-svh">
+      <div className="p-4 flex flex-col h-svh">
         <div>
           <p className="text-left font-semibold mb-6 text-2xl">
             My <span className="text-rose-500">Orders</span>
@@ -58,7 +59,8 @@ function OrdersPage() {
             ))}
           </div>
         ) : (
-          <div>
+          <div className="flex justify-center flex-col items-center place-items-center h-full">
+            <img src={noOrder} alt="no orders" className="h-3/5" />
             <p>You have no orders</p>
           </div>
         )}

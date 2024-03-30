@@ -14,7 +14,7 @@ export const Footer = () => {
       </div>
       <div>
         <button
-          className="p-2 rounded-full bg-rose-500 text-white"
+          className="py-2 px-4 rounded-full bg-rose-500 text-white"
           type="button"
           onClick={() => navigate("/checkout")}
         >

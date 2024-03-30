@@ -8,7 +8,7 @@ import OrdersPage from "./pages/orders";
 
 function App() {
   return (
-    <>
+    <div className="max-w-5xl mx-auto">
       <CartProvider>
           <ToastContainer />
           <Router>
@@ -19,7 +19,7 @@ function App() {
             </Routes>
           </Router>
       </CartProvider>
-    </>
+    </div>
   );
 }
 
