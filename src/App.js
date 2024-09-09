@@ -13,7 +13,7 @@ function App() {
           <ToastContainer />
           <Router>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage />} /> {/*accepts table query ie. ?table={tablenumber} */}
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/orders" element={<OrdersPage/>}/>
             </Routes>

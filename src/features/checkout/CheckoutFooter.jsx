@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { CartContext } from "../../context/cartContext";
 
 
-export const CheckoutFooter = () => {
+export const CheckoutFooter = ({table}) => {
   const navigate = useNavigate();
   const { getTotalPrice,setItems,items,user } = useContext(CartContext);
   console.log("======checkout user====",user.userId)
@@ -22,10 +22,12 @@ export const CheckoutFooter = () => {
     "userId":user.userId,
     "products":newProductList,
     "amount":getTotalPrice(),
-    "address":{"city":"In-house"},
+    "address":{"city":table?`Table ${table}`:"In-house"},
     "Status":"pending"
-
 }
+
+console.log("======checkout item====",newData)
+
     //TODO: Write Api call here if successful clear cart and navigate to home , Kindly use Axios I already have it imported
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/orders/create`,newData);
@@ -35,7 +37,7 @@ export const CheckoutFooter = () => {
         toast.success("Order Sent ", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        navigate("/")
+        table?navigate(`/?table=${table}`):navigate("/");
       }
     } catch (error) {
       console.log('error with checkout',error);

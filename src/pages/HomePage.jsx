@@ -5,7 +5,7 @@ import CategoryBar from "../features/checkout/CategoryBar";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BsMenuButton } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  useSearchParams  } from "react-router-dom";
 
 
 const HomePage = () => {
@@ -14,6 +14,9 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [cartSelected, setCartSelected] = useState("Breakfast");
   const navigate = useNavigate();
+  let [searchParams, setSearchParams]=  useSearchParams ();
+  const table = searchParams.get('table');
+  console.log("===my table===",searchParams.get('table'))
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,6 +78,7 @@ const HomePage = () => {
           setFilteredData={setFilteredData}
           allData={allData}
         />
+        {table&& <p className="my-2 py-2 px-4 border w-fit rounded-full font-medium">Table {table}</p> }
         {loading ? (
           <p className="text-center">Loading.......</p>
         ) : (
@@ -85,7 +89,7 @@ const HomePage = () => {
           </div>
         )}
       </div>
-      <Footer />
+      <Footer table={table} />
     </div>
   );
 };
