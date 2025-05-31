@@ -1,5 +1,5 @@
 # Project Description
-Digital catering system for managing restaurants and orders.
+[Consumers Portal] Digital catering system for managing restaurants and orders.
 
 # Project Initialized with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
