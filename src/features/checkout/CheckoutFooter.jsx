@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 
 import { CartContext } from "../../context/cartContext";

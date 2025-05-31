@@ -1,8 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+
 export const CartContext = createContext();
+
 export function CartProvider(props) {
   const [items, setItems] = useState([
+    // Example item structure
     // {
     //   _id: "1",
     //   name: "Jollof and Chicken",
@@ -33,8 +36,7 @@ export function CartProvider(props) {
   }, []);
 
   function addItemToCart(_id, product) {
-    console.log("====adding Item");
-    //   const product = getProduct(_id);
+    console.log("====adding Item===");
     setItems((prevItems) => {
       const item = prevItems.find((item) => item._id === _id);
       if (!item) {
@@ -58,14 +60,14 @@ export function CartProvider(props) {
               qty: item.qty + 1,
               totalPrice: item.totalPrice + product.price,
             };
-            // item.qty++;
-            // item.totalPrice += product.price;
+            
           }
           return item;
         });
       }
     });
   }
+
   const removeItem = (_id) => {
     setItems((prevItems) => {
       const updatedItems = prevItems
@@ -77,6 +79,7 @@ export function CartProvider(props) {
               totalPrice: item.totalPrice - item.price,
             };
           }
+
           return item;
         })
         .filter((item) => item.qty > 0);
@@ -84,16 +87,19 @@ export function CartProvider(props) {
       return updatedItems;
     });
   };
+
+  // Function to get the total number of items in the cart
   const getItemsCount = () => {
     let itemcount = items.reduce((sum, item) => sum + item.qty, 0);
     console.log("Total items", itemcount);
-    return items.reduce((sum, item) => sum + item.qty, 0);
+    return itemcount;
   };
 
+  // Function to get the total price of items in the cart
   const getTotalPrice = () => {
     let itemTotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
     console.log("Item total", itemTotal);
-    return items.reduce((sum, item) => sum + item.totalPrice, 0);
+    return itemTotal;
   };
 
   return (
